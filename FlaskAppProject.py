@@ -1,9 +1,12 @@
 __author__ = 'Tony Teate'
 
 #imports
+import webbrowser
 import sqlite3
 from flask import Flask, render_template
 from flask import request, redirect, url_for
+
+webbrowser.open('http://127.0.0.1:5000/')
 
 #instantiate
 app = Flask(__name__)
