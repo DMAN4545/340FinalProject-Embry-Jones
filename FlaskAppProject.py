@@ -70,7 +70,24 @@ def info():
         conn.commit()
         conn.close()
     return render_template('profile.html', memberID=memberID, firstname=firstname, lastname=lastname, age=age, email=email, bio=bio, success=success)
-        
+    
+@app.route('/view_all_celebs')
+def view_all():
+    celebID=None
+    firstname=''
+    lastname=''
+    age=''
+    email=''
+    photo=''
+    bio=''
+    
+    conn = sqlite3.connect('celebrities.db')
+    c = conn.cursor()
+    c.execute('''SELECT * FROM celebs ORDER BY celebID''')
+    rows=c.fetchall()
+    conn.close()
+    #Return
+    return render_template('View_All_Celebs.html', rows=rows)
 
 def get(request):
     pass
