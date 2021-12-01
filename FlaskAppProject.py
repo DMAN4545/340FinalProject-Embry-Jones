@@ -18,7 +18,59 @@ def login():
             return redirect(url_for('info'))
     return render_template('login.htm', error=error)
 
-
+@app.route('/info', methods=['GET','POST'])
+def info():
+    memberID=None
+    firstname=''
+    lastname=''
+    age=None
+    email=''
+    bio=''
+    success=False
+    
+    # This is called when the page is FIRST LOADED
+    if request.method == 'GET':
+        #Connect to the database and select one record (row of data)
+        conn = sqlite3.connect('celebrities.db')
+        c = conn.cursor()
+        c.execute('''SELECT * FROM members''')
+        row = c.fetchone()
+        #Prints row
+        #If the row contains data, store it in variables
+        if row:
+            memberID = row[0]
+            firstname = row[1]
+            lastname = row[2]
+            age = row[3]
+            email = row[4]
+            bio = row[5]
+        #Clost connection to db
+        conn.close()
+        #Print row
+    #This is called when the submit button is clicked
+    if request.method == 'POST':
+        #Gets the data form and store it in variables 
+        #This uses the request method to get the data from named elements on the form
+        memberID = request.form['memberID']
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        age = request.form['age']
+        email = request.form['email']
+        bio = request.form['bio']
+        success = True
+        #Now store the data from the form in the db
+        conn = sqlite3.connect('celebrities.db')
+        c = conn.cursor()
+        c.execute('''SELECT * FROM members''')
+        row = c.fetchone()
+        if row: #if the row exists, update the data in the row
+            c.execute('''UPDATE members SET firstname=?, lastname=?, age=?, email=?, bio=? WHERE memberID=?''', (firstname,lastname,age,email,bio,memberID))
+        else: #If the row doesnt exist, insert the data in the row
+            c.execute('''INSERT INTO members VALUES (?,?,?,?,?,?)''', (memberID, firstname, lastname, age, email, bio))
+        conn.commit()
+        conn.close()
+    return render_template('profile.html', memberID=memberID, firstname=firstname, lastname=lastname, age=age, email=email, bio=bio, success=success)
+        
 
 def get(request):
     pass

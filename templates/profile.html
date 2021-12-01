@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Profile Update</title>
+	</head>
+	
+	<body style="background-color:#e0ffff">
+		
+		<form action="" method="post">
+		
+			<fieldset>
+			
+				<legend>Profile Information:</legend>
+				
+				<p>Please <b>update</b> your profile informationon the following form<br>
+				<i>All fields are required and must contain valid information</i></p>
+				
+				<table>
+					
+					<tr>
+					
+						<td>Member ID:</td>
+						<td><input type="integer" name="memberID" value="{{memberID}}" readonly/></td>
+					
+					</tr>
+					
+					<tr>
+					
+						<td>First Name:</td>
+						<td><input type="text" name="firstname" value="{{firstname}}"/></td>
+						
+					</tr>
+					
+					<tr>
+					
+						<td>Last Name:</td>
+						<td><input type="text" name="lastname" value="{{lastname}}"/></td>
+						
+					</tr>
+					
+					<tr>
+					
+						<td>Age:</td>
+						<td><input type="text" name="age" value="{{age}}"/></td>
+						
+					</tr>
+					
+					<tr>
+					
+						<td>Email:</td>
+						<td style="italic"><input type="text" name="email" value="{{email}}"/> e.g. user@domain.com</td>
+						
+					</tr>
+					
+					<tr>
+					
+						<td><img src="{{url_for('static', filename='Devon.jpg')}}" width="110" height="130"></td>
+						<td><textarea name="bio" rows=4 cols=50>I currently attent JMU working towards a degree in ISAT.</textarea></td>
+						
+					</tr>
+					
+					<tr>
+					
+						<td style="border: 0px"><input type="submit" value="Click to Update"/></td>
+						
+					</tr>
+					
+				</table>
+				
+			</fieldset>
+			
+		</form>
+		
+	</body>
+
+</html>
+
+<style>
+
+	table, td {
+		border: 1px solid black;
+	}
+
+</style>
