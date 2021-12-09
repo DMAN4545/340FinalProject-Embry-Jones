@@ -1,11 +1,14 @@
+<!--Created by Devon Embry and Blake Jones-->
+
 <!DOCTYPE html>
 <html>
 
 	<head>
 		<title>Profile Update</title>
+		<link rel="stylesheet" href="{{url_for('static', filename='celebs_stylesheet.css')}}"/>
 	</head>
 	
-	<body style="background-color:#e0ffff">
+	<body class="center">
 		
 		<form action="" method="post">
 		
@@ -15,15 +18,20 @@
 				
 				<p>Please <b>update</b> your profile informationon the following form<br>
 				<i>All fields are required and must contain valid information</i></p>
+				{% if success %}
+				<p><strong>Your profile has been updated successfully!</strong><br>
+				{% endif %}
 				
-				<button class"button button1"><a href="/view_all_celebs">Click to view all of celebrities!</a></button>
+				<a class="button" href="{{url_for('view_all', thememberID=thememberID)}}">Click to view all of celebrities!</a>
+				<a class="button" href="{{url_for('view_one', thememberID=thememberID, thecelebID=1)}}">Click to view a specific celebrity!</a><br><br>
+
 				
 				<table>
 					
 					<tr>
 					
 						<td>Member ID:</td>
-						<td><input type="integer" name="memberID" value="{{memberID}}" readonly/></td>
+						<td><input type="integer" name="memberID" value="{{memberID}}" readonly /></td>
 					
 					</tr>
 					
@@ -57,8 +65,8 @@
 					
 					<tr>
 					
-						<td><img src="{{url_for('static', filename='Devon.jpg')}}" width="110" height="130"></td>
-						<td><textarea name="bio" rows=4 cols=50>I currently attent JMU working towards a degree in ISAT.</textarea></td>
+						<td><img src="{{picurl}}" width="110" height="130"></td>
+						<td><textarea name="bio" rows=4 cols=50>{{bio}}</textarea></td>
 						
 					</tr>
 					
@@ -77,35 +85,3 @@
 	</body>
 
 </html>
-
-<style>
-
-	table, td {
-		border: 1px solid black;
-	}
-
-	.button {
-		border: none;
-		color: white;
-		padding: 16px 32px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 16px;
-		margin: 4px 2px;
-		transition-duration: 0.4s;
-		cursor: pointer;
-	}
-
-	.button1 {
-		background-color: white; 
-		color: black; 
-		border: 2px solid #4CAF50;
-	}
-
-	.button1:hover {
-		background-color: dark-gray;
-		color: white;
-	}
-
-</style>

@@ -1,3 +1,5 @@
+#Created by Devon Embry and Blake Jones
+
 import sqlite3
 
 con = sqlite3.connect("celebrities.db")
@@ -5,8 +7,9 @@ cursor = con.cursor()
 
 CelebsTables = "CREATE TABLE celebs(celebID INTEGER NOT NULL PRIMARY KEY,firstname TEXT,lastname	TEXT,age INTEGER,email TEXT,photo TEXT,bio	TEXT)"
 MembersTables = "CREATE TABLE members(memberID INTEGER NOT NULL PRIMARY KEY,firstname TEXT,lastname TEXT,age INTEGER,email TEXT,bio TEXT)"
+LoginTables = "CREATE TABLE member_login (memberID INTEGER NOT NULL PRIMARY KEY, username TEXT, password TEXT)"
 
-CreateTables = {CelebsTables, MembersTables}
+CreateTables = {CelebsTables, MembersTables, LoginTables}
 
 for i in CreateTables:
     cursor.execute(i)
@@ -28,9 +31,17 @@ cursor.executemany(CelebsInsert, CelebsData)
 con.commit()
 
 MembersInsert = "INSERT INTO members values(?,?,?,?,?,?)"
-MembersData = (1, "Devon", "Embry", 19, "embryda@dukes.jmu.edu", "I currently attent JMU working towards a degree in ISAT.")
+MembersData = {
+    (1, "Devon", "Embry", 19, "embryda@dukes.jmu.edu", "I currently attend JMU working towards a degree in ISAT."),
+    (2, "Blake", "Jones", 21, "jones2bg@dukes.jmu.edu", "I am currently pursuing a computer science degree at JMU.")}
 
-cursor.execute(MembersInsert, MembersData)
+cursor.executemany(MembersInsert, MembersData)
+con.commit()
+
+LoginInsert = "INSERT INTO member_login values(?,?,?)"
+LoginData = {(1, "devon", "devon"),(2, "blake", "blake")}
+
+cursor.executemany(LoginInsert, LoginData)
 con.commit()
 
 con.close()

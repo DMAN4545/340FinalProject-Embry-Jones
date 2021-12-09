@@ -1,15 +1,22 @@
+<!--Created by Devon Embry and Blake Jones-->
+
 <html>
 	<head>
 		<title>Celebrities</title>
-		<link type="text/css" rel="stylesheet" href="static/celebs_stylesheet.css"/>
+		<link rel="stylesheet" href="{{url_for('static', filename='celebs_stylesheet.css')}}"/>
 	</head>
 	
-	<body>
+	<body class="center">
+		<div class="center1">
+			<h1>Welcome to our list of Celebrities!</h1>
+			<a class="button" href="{{url_for('info', thememberID=thememberID)}}">Click to go back to your profile!</a>
+			<p><strong>Click the pictures to go to individual pages.</strong></p>
+		</div>
+		{% for row in rows %}
 		<table border=5>
-			{% for row in rows %}
 			<tr>
 				<td>Photo:</td>
-				<td><img height="256" width="256" src="{{row[5]}}"/>
+				<td><a title="Click me to go to individual page!" href="{{url_for('view_one', thememberID=thememberID, thecelebID=row[0])}}"><img height="256" width="256" src="{{row[5]}}"/></a></td>
 			</tr>
 			<tr>
 				<td>Celebrity ID:</td>
@@ -35,8 +42,8 @@
 				<td>Bio:</td>
 				<td>{{row[6]}}</td>
 			</tr>
-			<tr><td colspan=2><br></td></tr>
-			{% endfor %}
+			<br>
 		</table>
+		{% endfor %}
 	</body>
 <html>
